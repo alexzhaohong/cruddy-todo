@@ -40,6 +40,7 @@ exports.readAll = (callback) => {
   //    for each file in the dataDir, get its path name -readFile
   // . Build a array of Files with id = pathname and text = pathname
   // . Return an array of Todos (GET request)
+  //
 
   fs.readdir(exports.dataDir, (err, files) => {
     if (err) {
