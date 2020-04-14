@@ -41,12 +41,24 @@ exports.readAll = (callback) => {
   // . Build a array of Files with id = pathname and text = pathname
   // . Return an array of Todos (GET request)
 
+  fs.readdir(exports.dataDir, (err, files) => {
+    if (err) {
+      callback(err);
+      return;
+    } else {
+      var arrayData = _.map(files, (file) => {
+        var id = path.basename(file, '.txt');
+        return {id: id, text: id};
+      });
+      callback(null, arrayData);
+    }
+  });
 
   // ORIGINAL VERSION
-  var data = _.map(items, (text, id) => {
-    return { id, text };
-  });
-  callback(null, data);
+  // var data = _.map(items, (text, id) => {
+  //   return { id, text };
+  // });
+  // callback(null, data);
 };
 
 exports.readOne = (id, callback) => {
