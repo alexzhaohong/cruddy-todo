@@ -49,6 +49,8 @@ exports.getNextUniqueId = (nextCallback) => {
       console.log(err);
       return;
     } else {
+      console.log('-1 check: ' + data);
+      console.log(data + 1);
       writeCounter(data + 1, (err, data) => (
         nextCallback(err, data)
       ));
