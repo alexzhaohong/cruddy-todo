@@ -1,3 +1,4 @@
+/* eslint-disable func-style */
 const fs = require('fs');
 const path = require('path');
 const sprintf = require('sprintf-js').sprintf;
@@ -25,6 +26,7 @@ const readCounter = (callback) => {
   });
 };
 
+
 const writeCounter = (count, callback) => {
   var counterString = zeroPaddedNumber(count);
   fs.writeFile(exports.counterFile, counterString, (err) => {
@@ -38,13 +40,33 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
-};
+// Goal: save id counter to client/hard drive
+// Make use of readCounter & writeCounter
+exports.getNextUniqueId = (nextCallback) => {
+  // reading it -> increment it -> write it -> put counter in nextCallback
+  readCounter((err, data) => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      writeCounter(data + 1, (err, data) => (
+        nextCallback(err, data)
+      ));
+    }
+  });
 
+
+  // readCounter((err, data) => { writeCounter(data + 1, nextCallback); });
+
+
+  // counter = counter + 1;
+  // return zeroPaddedNumber(counter);
+};
 
 
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
 
+//counterFile = string that points to somewhere in your file system
+
 exports.counterFile = path.join(__dirname, 'counter.txt');
+
