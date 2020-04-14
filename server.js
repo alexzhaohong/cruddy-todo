@@ -20,10 +20,14 @@ app.use(express.static(path.join(__dirname, './public')));
 
 // Create (Crud) -- collection route
 app.post('/todo', (req, res) => {
+  // this post request passes in a (request obj, results obj) =>
+  // creates the todo, passes in (text of the request obj) and a function
+  // this function handles errors (400) and successes (201) and json object of a new todo
   Todo.create(req.body.todoText, (err, newTodo) => {
     if (err) {
       res.sendStatus(400);
     } else {
+      // send back json object w/ newTodo
       res.status(201).json(newTodo);
     }
   });
