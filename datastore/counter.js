@@ -46,11 +46,11 @@ exports.getNextUniqueId = (nextCallback) => {
   // reading it -> increment it -> write it -> put counter in nextCallback
   readCounter((err, data) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       return;
     } else {
-      console.log('-1 check: ' + data);
-      console.log(data + 1);
+      // console.log('-1 check: ' + data);
+      // console.log(data + 1);
       writeCounter(data + 1, (err, data) => (
         nextCallback(err, data)
       ));
