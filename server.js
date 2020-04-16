@@ -23,6 +23,7 @@ app.post('/todo', (req, res) => {
   // this post request passes in a (request obj, results obj) =>
   // creates the todo, passes in (text of the request obj) and a function
   // this function handles errors (400) and successes (201) and json object of a new todo
+  console.log(req);
   Todo.create(req.body.todoText, (err, newTodo) => {
     if (err) {
       res.sendStatus(400);
